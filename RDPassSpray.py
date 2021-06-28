@@ -3,6 +3,8 @@
 # linux against 2012 DC escape chars in password with \ - e.g P\@ssword\!\#
 # version 0.2
 
+#Updated 6/28/2021 - Thomas Freeman to add 61 minute sleep delay between password attempts to avoid account lockout
+
 import argparse
 import csv
 import datetime
@@ -279,6 +281,8 @@ def attempts(users, passes, targets, domain, output_file_name, hostnames_strippe
                         else:
                             attempts_hostname_counter = 0
 
+                    #Add a 61 minute pause between password attempts to avoid lockouts.
+                    time.sleep(3660)
         LOGGER.info("[*] Overall compromised accounts: %s" % working_creds_counter)
         LOGGER.info(
             "[*] Finished running at: %s" % datetime.datetime.now().strftime('%d-%m-%Y %H:%M:%S'))
